@@ -1,37 +1,26 @@
 <template>
-    <div class="tab">
-        <van-tabs v-model="activeName" title-active-color="#ff5777" sticky>
-            <van-tab 
-                v-for="(value, key) in goods" 
-                :key="key"
-                :title="goods[key].title"
-                :name="key"
-            >
-               <van-list
-                    v-model="loading"
-                    :finished="finished"
-                    finished-text="没有更多了"
-                    @load="onLoad"
-                    :immediate-check="false"
+    <div class="recommend" ref="recommend">
+        <div class="head">
+            {{title}}
+        </div>
+        <van-list
                >
-                    <template v-for="(item, index) in goods[key].list">
-                        <router-link :key="index" class="cell" :to="{path: 'detail', query: {iid: item.iid}}" tag="div">
-                            <img v-lazy="item.show.img" />
-                            <div class="describe">
-                                <p v-text="item.title"></p>
-                                <div class="other">
-                                    <span v-text="'¥' + item.price" class="price"></span>
-                                    <span class="cfav">
-                                        <van-icon name="star-o" />
-                                        {{item.cfav}}
-                                    </span>
-                                </div>
-                            </div>
-                        </router-link>
-                    </template>
-                </van-list>
-            </van-tab>
-        </van-tabs>
+            <template v-for="(item, index) in recommend">
+                <div :key="index" class="cell">
+                    <img v-lazy="item.image" />
+                    <div class="describe">
+                        <p v-text="item.title"></p>
+                        <div class="other">
+                            <span v-text="'¥' + item.price" class="price"></span>
+                            <span class="cfav">
+                                <van-icon name="star-o" />
+                                {{item.cfav}}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </van-list>
     </div>
 </template>
 
@@ -39,23 +28,27 @@
 export default {
     data() {
         return {
-            activeName: '',
-            loading: false,
-            finished: false
         }
     },
     methods: {
-        onLoad() {
-            let activeName = this.activeName || 'pop'
-            this.$emit('child-event', activeName)
+        getTopHight() {
+            let topHeight = this.$refs.recommend.getBoundingClientRect().top
+            this.$emit('child-event', topHeight)
         }
     },
-    props: ['goods']
+    props: ['recommend', 'title']
 }
 </script>
 
 <style lang="scss" scoped>
-    .tab {
+    .recommend {
+        .head {
+            height: 50px;
+            line-height: 50px;
+            padding: 0 8px;
+            color: #333;
+            font-size: 15px;
+        }
         ::v-deep [class*=van-hairline]::after {
             border: none;
         }
@@ -114,13 +107,6 @@ export default {
                     }
                 }
             }
-        }
-
-        ::v-deep .van-list__loading {
-            width: 100%;
-        }
-        ::v-deep .van-list__finished-text {
-             width: 100%;
         }
     }
 </style>

@@ -4,12 +4,18 @@ import router from '@/router/index'
 import Vant from 'vant'
 import 'vant/lib/index.css'
 import axios from 'axios'
+import store from './store'
+import { Lazyload } from 'vant';
 
-Vue.use(Vant);
+
+Vue.use(Lazyload)
+Vue.use(Vant)
+
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

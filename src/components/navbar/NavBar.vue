@@ -22,6 +22,7 @@ export default {
             background: #ff8198;
             .van-nav-bar__title {
                 color: #fff;
+                font-size: 18px;
             }
         }
     }

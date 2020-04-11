@@ -4,7 +4,7 @@
       <router-view v-if="$route.meta.keepAlive"></router-view> 
     </keep-alive> 
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <Tabbar :menu="menu" :color="color" ref="tabbar" :activePath="activePath" />
+    <Tabbar :menu="menu" :color="color" ref="tabbar" :activePath="activePath" :class="isactive?'':'hidden'"/>
   </div>
 </template>
 
@@ -45,6 +45,26 @@ export default {
       color: {
         activeColor: 'red',
         inactiveColor: 'black'
+      },
+      isactive: true
+    }
+  },
+  methods: {
+    resetStatus(path) {
+      let route_link = path
+      let flag = false
+      for(let m of this.menu) {
+        if(route_link === m.name) {
+          this.$refs.tabbar.active = route_link
+          flag = true
+          break
+        }
+      }
+
+      if(!flag) {
+        this.isactive = false;
+      } else {
+        this.isactive = true;
       }
     }
   },
@@ -54,19 +74,21 @@ export default {
   watch:{
     $route(to){
       let route_link = to.path.replace('/', '')
-      for(let m of this.menu) {
-        if(route_link === m.name) {
-          this.$refs.tabbar.active = route_link
-          break
-        }
-      }
+      this.resetStatus(route_link)
     }
+  },
+  mounted() {
+    let route_link = this.$route.path.replace('/', '')
+    this.resetStatus(route_link)
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
 #app {
   margin-bottom: 50px;
+  .hidden {
+    display: none;
+  }
 }
 </style>

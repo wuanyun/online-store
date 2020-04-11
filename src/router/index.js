@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 
 import Home from  '@/views/home/Home'
 import Category from  '@/views/category/Category'
+import Detail from  '@/views/detail/Detail'
+import Cart from  '@/views/cart/Cart'
+import Profile from  '@/views/profile/Profile'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -24,7 +28,31 @@ const router = new VueRouter({
             component: Category,
             name: 'category',
             meta: {
-                keepAlive: true
+                keepAlive: false
+            }
+        },
+        {
+            path: '/cart',
+            component: Cart,
+            name: 'cart',
+            meta: {
+                keepAlive: false
+            }
+        },
+        {
+            path: '/detail',
+            component: Detail,
+            name: 'detail',
+            meta: {
+                keepAlive: false
+            }
+        },
+        {
+            path: '/profile',
+            component: Profile,
+            name: 'profile',
+            meta: {
+                keepAlive: false
             }
         }
     ]

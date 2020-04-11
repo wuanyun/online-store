@@ -1,5 +1,5 @@
 <template>
-    <div class="tab">
+    <div class="recommend">
         <van-tabs v-model="activeName" title-active-color="#ff5777" sticky>
             <van-tab 
                 v-for="(value, key) in goods" 
@@ -7,16 +7,10 @@
                 :title="goods[key].title"
                 :name="key"
             >
-               <van-list
-                    v-model="loading"
-                    :finished="finished"
-                    finished-text="没有更多了"
-                    @load="onLoad"
-                    :immediate-check="false"
-               >
+               <van-list>
                     <template v-for="(item, index) in goods[key].list">
                         <router-link :key="index" class="cell" :to="{path: 'detail', query: {iid: item.iid}}" tag="div">
-                            <img v-lazy="item.show.img" />
+                            <img v-lazy="item.img" />
                             <div class="describe">
                                 <p v-text="item.title"></p>
                                 <div class="other">
@@ -39,9 +33,7 @@
 export default {
     data() {
         return {
-            activeName: '',
-            loading: false,
-            finished: false
+            activeName: ''
         }
     },
     methods: {
@@ -55,7 +47,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    .tab {
+    .recommend {
         ::v-deep [class*=van-hairline]::after {
             border: none;
         }
