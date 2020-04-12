@@ -1,7 +1,7 @@
 import originAxios from 'axios'
 
 function axios(option) {
-    const base_url = 'http://123.207.32.32:8000/api/h8'
+    const base_url = '接口地址'
 
     return new Promise((resolver, reject) => {
         originAxios({
