@@ -30,14 +30,16 @@ export default {
             
         },
         buy() {
-            console.log('state: ' , this.cart.iid)
             if(this.cart.iid) {
                 let index = this.list.findIndex(x => x.iid === this.cart.iid)
                 if(index === -1) {
                     this.$store.commit('addList', this.cart)
                 }
-
-                this.$router.push({path: '/cart'})
+                this.$toast.success('操作成功')
+                setTimeout(() => {
+                    this.$router.push({path: '/cart'})
+                }, 1000);
+                
             } else {
                 this.$toast.fail('操作失败')
             }

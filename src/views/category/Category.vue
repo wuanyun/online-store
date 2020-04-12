@@ -78,12 +78,19 @@ export default {
             })
         },
         changeCategory(obj) {
-            window.scrollTo(0, 0);
+            window.scrollTo(0, 0)
+            this.maitKeys = []
+            this._initGoods()
             this._getMaitKey(obj.maitKey)
             this.$refs.recommend.activeName = 'pop'
             for(let key in this.goods) {
                     this._getMiniWallkey(obj.miniWallkey, key)
             }
+        },
+        _initGoods() {
+            this.goods.pop.list = []
+            this.goods.new.list = []
+            this.goods.sell.list = []
         }
     },
     created() {

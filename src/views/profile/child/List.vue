@@ -1,27 +1,11 @@
 <template>
     <div class="list">
-        <div class="item">
+        <div v-for="(item, index) in list" :key="index" class="item">
             <div class="logo">
-                <van-icon name="chat-o" />
+                <van-icon :name="item.icon" />
             </div>
             <div class="content">
-                我的消息
-            </div>
-        </div>
-        <div class="item">
-            <div class="logo">
-                <van-icon name="shop-o" />
-            </div>
-            <div class="content">
-                积分商场
-            </div>
-        </div>
-        <div class="item">
-            <div class="logo">
-                <van-icon name="vip-card-o" />
-            </div>
-            <div class="content">
-                会员卡
+                {{item.title}}
             </div>
         </div>
     </div>
@@ -29,7 +13,12 @@
 
 <script>
 export default {
-    
+    data() {
+        return {
+            
+        }
+    },
+    props: ['list']
 }
 </script>
 
@@ -47,6 +36,7 @@ export default {
                 width: 40px;
                 text-align: center;
                 font-size: 20px;
+                padding-top: 2px;
                 
             }
             .content {
